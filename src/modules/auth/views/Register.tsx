@@ -10,7 +10,7 @@ const Register = observer(() => {
 
   useEffect(() => {
     store.setIsRegisterSuccess(false);
-  }, []);
+  }, [store]);
 
   return (
     <div>

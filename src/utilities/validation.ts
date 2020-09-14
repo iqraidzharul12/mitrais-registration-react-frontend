@@ -4,9 +4,7 @@ export const validateMobile = (string: string) => {
   );
 };
 export const validateEmail = (string: string) => {
-  return string.match(
-    /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
-  );
+  return string.match(/^([a-zA-Z0-9_]+)@([a-zA-Z0-9_]+)\.([a-zA-Z]{2,5})$/);
 };
 export const validateRequired = (string: string) => {
   return string !== "";

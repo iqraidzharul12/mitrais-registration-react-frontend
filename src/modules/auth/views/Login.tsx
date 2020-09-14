@@ -22,7 +22,6 @@ const Login = observer(() => {
                   e.preventDefault();
                   history.push("register");
                 }}
-                href="#"
               >
                 sign up here
               </a>
