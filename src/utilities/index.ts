@@ -1,7 +1,3 @@
-import {
-  getThreeDigitNumber,
-  upperCaseFirst,
-  removeUnusedCharacter,
-} from "./string";
+import { validateMobile, validateEmail, validateRequired } from "./validation";
 
-export { getThreeDigitNumber, upperCaseFirst, removeUnusedCharacter };
+export { validateMobile, validateEmail, validateRequired };
