@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import { action, observable } from "mobx";
 import { validateEmail, validateMobile, validateRequired } from "../utilities";
+import Axios from "axios";
 
 export class Store {
   @observable isLoading = false;
@@ -23,7 +24,7 @@ export class Store {
     error: false,
   };
   @observable error = false;
-  @observable errorList = [];
+  @observable errorList: any[] = [];
   @observable isRegisterSuccess = false;
 
   @action
@@ -79,12 +80,39 @@ export class Store {
     };
   }
   @action
-  submitRegister() {
+  async submitRegister() {
     this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
+    try {
+      const body = {
+        mobileNumber: this.mobile.value,
+        firstName: this.firstName.value,
+        lastName: this.lastName.value,
+        email: this.email.value,
+        gender: this.gender,
+        dateOfBirth: this.dateOfBirth,
+      };
+      const response = await Axios.post("http://localhost:3001/user", body, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      this.error = response.data.error;
+      this.errorList = response.data.errorMessages;
       this.isRegisterSuccess = true;
-    }, 5000);
+    } catch (e) {
+      if (e.response.data.errorMessages.length) {
+        this.error = e.response.data.error;
+        this.errorList = e.response.data.errorMessages;
+        console.log(e.response.data.errorMessages);
+      } else {
+        this.error = true;
+        this.errorList = ["server error when submitting form"];
+        console.log(
+          `error when submitting form with error: ${JSON.stringify(e.response)}`
+        );
+      }
+    }
+    this.isLoading = false;
   }
   @action
   setIsRegisterSuccess(value: boolean) {
