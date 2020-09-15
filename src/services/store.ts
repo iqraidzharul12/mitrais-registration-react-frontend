@@ -100,7 +100,7 @@ export class Store {
       this.errorList = response.data.errorMessages;
       this.isRegisterSuccess = true;
     } catch (e) {
-      if (e.response.data.errorMessages.length) {
+      if (e.response && e.response.data) {
         this.error = e.response.data.error;
         this.errorList = e.response.data.errorMessages;
         console.log(e.response.data.errorMessages);
